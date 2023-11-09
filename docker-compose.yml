@@ -36,16 +36,16 @@ services:
       - "POSTGRES_USER=${POSTGRES_USER}"
       - "POSTGRES_DB=${POSTGRES_DB}"
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    ports:
-      - 8888:80
-    volumes:
-      - "./pgadmin:/var/lib/pgadmin"
-      - "./work:/work"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: example@example.com
-      PGADMIN_DEFAULT_PASSWORD: pass
-    depends_on:
-      - db
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4
+  #   ports:
+  #     - 8888:80
+  #   volumes:
+  #     - "./pgadmin:/var/lib/pgadmin"
+  #     - "./work:/work"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: example@example.com
+  #     PGADMIN_DEFAULT_PASSWORD: pass
+  #   depends_on:
+  #     - db
