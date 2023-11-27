@@ -3,16 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>案件情報入力</title>
+    <title>顧客新規追加確認画面</title>
     <!-- Bootstrap CSSの読み込み -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <!-- ここにHTMLを書く -->
+        <h1 class="mb-4">顧客追加確認</h1>
+
+        <!-- 確認内容を表示 -->
+        <p>以下の内容で顧客を追加します。よろしいですか？</p>
+        <ul>
+            <li><strong>会社名:</strong> <span id="companyName"></span></li>
+            <li><strong>業界:</strong> <span id="industry"></span></li>
+            <li><strong>連絡先情報:</strong> <span id="contact"></span></li>
+            <li><strong>所在地:</strong> <span id="location"></span></li>
+            <!-- 他の顧客情報も同様に追加 -->
+        </ul>
+
+        <!-- 「確認する」ボタン -->
+        <button class="btn btn-primary" id="confirmButton">確認する</button>
     </div>
     <script type="module">
-        <!-- ここにJSを書く -->
+        // ここに顧客データを表示するスクリプトを追加
+        const customerData = {
+            companyName: "会社名のデータ",
+            industry: "業界のデータ",
+            contact: "連絡先情報のデータ",
+            location: "所在地のデータ"
+            // 他の顧客情報も同様に追加
+        };
+
+        // ページが読み込まれたときに実行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 顧客情報を表示
+            document.getElementById('companyName').textContent = customerData.companyName;
+            document.getElementById('industry').textContent = customerData.industry;
+            document.getElementById('contact').textContent = customerData.contact;
+            document.getElementById('location').textContent = customerData.location;
+
+            // 確認ボタンにクリックイベントを追加
+            document.getElementById('confirmButton').addEventListener('click', function() {
+                // ここに確認ボタンが押されたときの処理を追加
+                // 例えば、顧客を追加するAPIを呼び出すなど
+                alert('顧客を追加しました :）');
+                // 顧客追加画面に遷移
+                window.location.href = 'http://localhost/customer/add.html';
+            });
+        });
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

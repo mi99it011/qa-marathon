@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">顧客情報を入力してください</h2>
-        <form id="customer-form">
+        <form action="/add-customer" method="post" id="customer-form">
             <div class="form-group">
                 <label for="companyName">会社名:</label>
                 <input type="text" class="form-control" id="companyName" name="companyName" required>
@@ -31,12 +31,14 @@
         </form>
     </div>
     <script type="module">
-        import config from '../config.js';
+        // import config from '../../config.js';
 
         document.getElementById('customer-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            fetch(config.apiUrl + '/add-customer', {
+            const apiUrl = 'http://localhost:3333';
+            // ↑を追加し↓をconfig.apiUrlから変更　config.jsのapiUrlが反応していない
+            fetch(apiUrl + '/add-customer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -53,6 +55,10 @@
                 }
               })
               .catch(error => console.error('Error:', error));
+
+              // フォームデータを確認画面に渡してリダイレクト
+            const queryString = new URLSearchParams([...formData]).toString();
+            window.location.href = '/customer/add-confirm.html?' + queryString;
         });
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->

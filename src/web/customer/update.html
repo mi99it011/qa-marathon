@@ -3,17 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>案件情報入力</title>
+    <title>顧客更新画面</title>
     <!-- Bootstrap CSSの読み込み -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <!-- ここにHTMLを書く -->
+        <h1 class="mb-4">顧客情報編集</h1>
+        <p>編集が必要な部分を適宜変更してください</p>
+        <form id="update-form">
+            <div class="form-group">
+                <label for="companyName">会社名</label>
+                <input type="text" class="form-control" id="companyName" name="companyName" required>
+            </div>
+            <div class="form-group">
+                <label for="industry">業種</label>
+                <input type="text" class="form-control" id="industry" name="industry">
+            </div>
+            <div class="form-group">
+                <label for="contact">連絡先</label>
+                <input type="text" class="form-control" id="contact" name="contact" required>
+            </div>
+            <div class="form-group">
+                <label for="location">所在地</label>
+                <input type="text" class="form-control" id="location" name="location">
+            </div>
+            <button type="submit" class="btn btn-primary">更新</button>
+        </form>
     </div>
+
     <script type="module">
-        <!-- ここにJSを書く -->
+        // ExpressサーバのAPIエンドポイントのURL
+        const apiUrl = 'http://localhost:3333';
+
+        // 画面読み込み時にクエリパラメータから顧客IDを取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('customerId');
+
+        // フォーム要素を取得
+        const updateForm = document.getElementById('update-form');
+
+        // フォームが送信されたときのイベントリスナー
+        updateForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            // フォームデータを取得
+            const formData = new FormData(updateForm);
+
+            // フォームデータをオブジェクトに変換
+            const customerData = {};
+            formData.forEach((value, key) => {
+                customerData[key] = value;
+            });
+
+            // フォームデータを確認画面に渡してリダイレクト
+            const queryString = new URLSearchParams([...formData]).toString();
+            window.location.href = `/customer/update-confirm.html?customerId=${customerId}&${queryString}`;
+        });
+
+        // 画面読み込み時に顧客情報を表示
+        fetch(`${apiUrl}/customer/${customerId}`)
+            .then(response => response.json())
+            .then(customer => {
+                // 顧客情報をフォームにセット
+                document.getElementById('companyName').value = customer.company_name;
+                document.getElementById('industry').value = customer.industry;
+                document.getElementById('contact').value = customer.contact;
+                document.getElementById('location').value = customer.location;
+            })
+            .catch(error => console.error('Error:', error));
     </script>
+
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

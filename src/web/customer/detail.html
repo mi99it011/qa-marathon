@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>顧客詳細表示画面</title>
+    <!-- Bootstrap CSSの読み込み -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* カスタムスタイル */
+        .custom-btn {
+          border: 1px solid #000; /* 黒い枠線 */
+          color: #000; /* 黒い文字色 */
+          background-color: #fff; /* 白い背景色 */
+        }
+      </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">顧客詳細</h1>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">項目</th>
+            <th scope="col">内容</th>
+          </tr>
+        </thead>
+        <tbody id="customer-detail">
+          <!-- 顧客データはここに挿入されます -->
+        </tbody>
+      </table>
+      <!-- 削除ボタン -->
+      <button id="update-button" class="btn custom-btn">顧客情報を編集する</button>
+      <br>
+      <br>
+      <button id="delete-button" class="btn btn-danger">顧客情報を削除する</button>
+      <br>
+      <br>
+      <!-- 戻るリンク -->
+      <a href="http://localhost/customer/list.html" class="text-right">一覧に戻る</a>
+    </div>
+    <script type="module">
+    // ExpressサーバのAPIエンドポイントのURL
+    const apiUrl = 'http://localhost:3333';
+
+    // 画面読み込み時にクエリパラメータから顧客IDを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    const customerId = urlParams.get('customerId');
+
+      // APIから顧客データを取得して表示
+      fetch(`${apiUrl}/customer/${customerId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+        //   console.log(response); // ここでレスポンスオブジェクトをログに出力
+          return response.json();
+        })
+        .then((customer) => {
+            // 成功した場合の処理
+            console.log(customer);
+            const detailTable = document.getElementById("customer-detail");
+
+          // 各カラムと値を表示
+          for (const [key, value] of Object.entries(customer)) {
+            const row = detailTable.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = key;
+            cell2.textContent = value;
+          }
+        })
+        .catch((error) => {
+        // エラーが発生した場合の処理
+        console.error('Fetch Error:', error);
+        });
+
+    // 削除ボタンがクリックされたときの処理
+    const deleteButton = document.getElementById("delete-button");
+    deleteButton.addEventListener('click', () => {
+    const confirmation = confirm('削除していいですか？');
+
+    if (confirmation) {
+        // ユーザーが削除を確認した場合、サーバーサイドのエンドポイントを呼び出し
+        fetch(`${apiUrl}/customer/${customerId}`, {
+        method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+        if (data.success) {
+            alert('顧客情報が削除されました。');
+            // 削除成功時の処理（例: 一覧画面にリダイレクト）
+            window.location.href = 'http://localhost/customer/list.html';
+        } else {
+            alert('削除に失敗しました。');
+        }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    });
+
+    // 更新ボタンがクリックされたときの処理
+    const updateButton = document.getElementById("update-button");
+      updateButton.addEventListener('click', () => {
+        // 顧客更新画面に遷移
+        window.location.href = `http://localhost/customer/update.html?customerId=${customerId}`;
+      });
+    </script>
+
+    <!-- BootstrapのJavaScriptと依存関係のリク -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

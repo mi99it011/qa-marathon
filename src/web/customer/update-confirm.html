@@ -3,17 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>案件情報入力</title>
+    <title>顧客情報更新確認画面</title>
     <!-- Bootstrap CSSの読み込み -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <!-- ここにHTMLを書く -->
+        <h1 class="mb-4">顧客情報更新確認</h1>
+        <p>以下の内容で顧客を追加します。よろしいですか？</p>
+        <ul id="confirmation-message"></ul>
+        <button id="confirm-update" class="btn btn-primary">更新</button>
+        <br>
+        <br>
+        <a href="http://localhost/customer/list.html" class="text-right">一覧に戻る</a>
     </div>
+
     <script type="module">
-        <!-- ここにJSを書く -->
+        // 画面読み込み時にクエリパラメータから顧客情報を取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('customerId');
+        urlParams.delete('customerId');
+        const formData = Object.fromEntries(urlParams.entries());
+
+        // 顧客情報を表示する要素
+        const confirmationMessageElement = document.getElementById('confirmation-message');
+
+        // 顧客情報を表示する関数
+        const displayCustomerInfo = () => {
+            // カラム名を日本語に対応するオブジェクト
+            const columnNames = {
+                companyName: '会社名',
+                industry: '業界',
+                contact: '連絡先情報',
+                location: '所在地',
+                // 他のカラムも同様に追加
+            };
+            // 顧客情報をHTMLに挿入
+            for (const [key, value] of Object.entries(formData)) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${columnNames[key]}:</strong> <span id="${key}">${value}</span>`;
+                confirmationMessageElement.appendChild(listItem);
+            }
+        };
+
+        // 画面読み込み時に顧客情報を表示
+        window.addEventListener('load', displayCustomerInfo);
+
+        // 更新を確認するボタンがクリックされたときの処理
+        const confirmUpdateButton = document.getElementById('confirm-update');
+        confirmUpdateButton.addEventListener('click', () => {
+            const confirmation = confirm('更新していいですか？');
+
+            if (confirmation) {
+                // 更新確認がOKの場合、顧客詳細表示画面に遷移
+                window.location.href = `/customer/detail.html?customerId=${customerId}`;
+            }
+        });
     </script>
+
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

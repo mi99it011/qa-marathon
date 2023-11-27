@@ -14,15 +14,25 @@ services:
     container_name: "nodejs"
     image: node:20-bullseye
     ports:
-      - "3000:3000"
+      - "3333:3333"
+    # ↑"3000:3000"だったのを変更
     volumes:
       - "./src/node:/app"
       - "./work:/work"
     working_dir: /app
     tty: true
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_DB=crm_3333
+      - POSTGRES_USER=user_3333
+      - POSTGRES_PASSWORD=pass_3333
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
   db:
     container_name: "postgres"
-    image: postgres:14-alpine
+    image: postgres:latest 
+    # バージョン書いてあったのをlatestに変更
     restart: always
     shm_size: 256mb
     healthcheck:
@@ -32,20 +42,21 @@ services:
       - "./work:/work"
     working_dir: /work
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=${POSTGRES_HOST_AUTH_METHOD}"
-      - "POSTGRES_USER=${POSTGRES_USER}"
-      - "POSTGRES_DB=${POSTGRES_DB}"
-      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
-  # pgadmin:
-  #   container_name: pgadmin
-  #   image: dpage/pgadmin4
-  #   ports:
-  #     - 8888:80
-  #   volumes:
-  #     - "./pgadmin:/var/lib/pgadmin"
-  #     - "./work:/work"
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: example@example.com
-  #     PGADMIN_DEFAULT_PASSWORD: pass
-  #   depends_on:
-  #     - db
+      - POSTGRES_DB=crm_3333
+      - POSTGRES_USER=user_3333
+      - POSTGRES_PASSWORD=pass_3333
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - 8888:80
+    volumes:
+      - "./pgadmin:/var/lib/pgadmin"
+      - "./work:/work"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@example.com
+      PGADMIN_DEFAULT_PASSWORD: pass
+    depends_on:
+      - db
