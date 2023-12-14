@@ -31,14 +31,14 @@
         </form>
     </div>
     <script type="module">
-        // import config from '../../config.js';
+        import config from '../config.js';
 
         document.getElementById('customer-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            const apiUrl = 'http://localhost:3333';
-            // ↑を追加し↓をconfig.apiUrlから変更　config.jsのapiUrlが反応していない
-            fetch(apiUrl + '/add-customer', {
+            // const apiUrl = 'http://localhost:3333';
+            // ↑を追加し↓をconfig.apiUrlから変更 config.jsのapiUrlが反応していない
+            fetch(config.apiUrl + '/add-customer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

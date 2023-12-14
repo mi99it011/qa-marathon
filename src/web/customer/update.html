@@ -33,8 +33,9 @@
     </div>
 
     <script type="module">
+        import config from "../config.js";
         // ExpressサーバのAPIエンドポイントのURL
-        const apiUrl = 'http://localhost:3333';
+        // const apiUrl = 'http://localhost:3333';
 
         // 画面読み込み時にクエリパラメータから顧客IDを取得
         const urlParams = new URLSearchParams(window.location.search);
@@ -62,7 +63,7 @@
         });
 
         // 画面読み込み時に顧客情報を表示
-        fetch(`${apiUrl}/customer/${customerId}`)
+        fetch(`${config.apiUrl}/customer/${customerId}`)
             .then(response => response.json())
             .then(customer => {
                 // 顧客情報をフォームにセット

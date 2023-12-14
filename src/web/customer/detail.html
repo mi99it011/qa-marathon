@@ -37,18 +37,19 @@
       <br>
       <br>
       <!-- 戻るリンク -->
-      <a href="http://localhost/customer/list.html" class="text-right">一覧に戻る</a>
+      <a href="/customer/list.html" class="text-right">一覧に戻る</a>
     </div>
     <script type="module">
     // ExpressサーバのAPIエンドポイントのURL
-    const apiUrl = 'http://localhost:3333';
+    // const apiUrl = 'http://localhost:3333';
+    import config from '../config.js';
 
     // 画面読み込み時にクエリパラメータから顧客IDを取得
     const urlParams = new URLSearchParams(window.location.search);
     const customerId = urlParams.get('customerId');
 
       // APIから顧客データを取得して表示
-      fetch(`${apiUrl}/customer/${customerId}`)
+      fetch(`${config.apiUrl}/customer/${customerId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -82,7 +83,7 @@
 
     if (confirmation) {
         // ユーザーが削除を確認した場合、サーバーサイドのエンドポイントを呼び出し
-        fetch(`${apiUrl}/customer/${customerId}`, {
+        fetch(`${config.apiUrl}/customer/${customerId}`, {
         method: 'DELETE',
         })
         .then(response => response.json())
@@ -90,7 +91,7 @@
         if (data.success) {
             alert('顧客情報が削除されました。');
             // 削除成功時の処理（例: 一覧画面にリダイレクト）
-            window.location.href = 'http://localhost/customer/list.html';
+            window.location.href = '/customer/list.html';
         } else {
             alert('削除に失敗しました。');
         }
@@ -103,7 +104,7 @@
     const updateButton = document.getElementById("update-button");
       updateButton.addEventListener('click', () => {
         // 顧客更新画面に遷移
-        window.location.href = `http://localhost/customer/update.html?customerId=${customerId}`;
+        window.location.href = `/customer/update.html?customerId=${customerId}`;
       });
     </script>
 
