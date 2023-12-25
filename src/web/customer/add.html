@@ -37,7 +37,7 @@
             e.preventDefault();
             const formData = new FormData(this);
             // const apiUrl = 'http://localhost:3333';
-            // ↑を追加し↓をconfig.apiUrlから変更 config.jsのapiUrlが反応していない
+            // ↑を追加し↓をconfig.apiUrlから変更 config.jsのapiUrlが反応していない。
             fetch(config.apiUrl + '/add-customer', {
                 method: 'POST',
                 headers: {
