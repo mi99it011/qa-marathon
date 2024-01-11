@@ -31,13 +31,12 @@
         </form>
     </div>
     <script type="module">
-        import config from '../config.js';
+        import config from '../prod_config.js';
 
         document.getElementById('customer-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            // const apiUrl = 'http://localhost:3333';
-            // ↑を追加し↓をconfig.apiUrlから変更 config.jsのapiUrlが反応していない。
+            
             fetch(config.apiUrl + '/add-customer', {
                 method: 'POST',
                 headers: {
@@ -58,7 +57,7 @@
 
               // フォームデータを確認画面に渡してリダイレクト
             const queryString = new URLSearchParams([...formData]).toString();
-            window.location.href = '/customer/add-confirm.html?' + queryString;
+            window.location.href = config.apiUrl + '/customer/add-confirm.html?' + queryString;
         });
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->

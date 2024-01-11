@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: 'http://localhost:3333'
+  apiUrl: 'api_minami_ito'
 };
 
 export default config;

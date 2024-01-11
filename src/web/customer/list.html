@@ -22,12 +22,12 @@
           <!-- 顧客データはここに挿入されます -->
         </tbody>
       </table>
-      <a href="/index.html " class="text-right">ホーム画面に戻る</a>
+      <a href="/minami_ito/index.html " class="text-right">ホーム画面に戻る</a>
     </div>
     
     
     <script type="module">
-    import config from "../config.js";
+    import config from "../prod_config.js";
     
     document.addEventListener('DOMContentLoaded', function() {
       // ExpressサーバのAPIエンドポイントのURL
@@ -35,7 +35,7 @@
 
       // 顧客詳細表示画面へのリンクを作成
       const createCustomerDetailLink = (customerId) => {
-        return `/customer/detail.html?customerId=${customerId}`;
+        return config.apiUrl + `/customer/detail.html?customerId=${customerId}`;
       };
 
       fetch(`${config.apiUrl}/customer`)
