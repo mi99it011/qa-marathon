@@ -57,7 +57,7 @@
 
               // フォームデータを確認画面に渡してリダイレクト
             const queryString = new URLSearchParams([...formData]).toString();
-            window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
+            window.location.href = config.apiUrl + '/customer/add-confirm.html?' + queryString;
         });
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
