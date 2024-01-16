@@ -37,7 +37,8 @@
             e.preventDefault();
             const formData = new FormData(this);
 
-            fetch('/minami_ito/customer/add-confirm.html', {
+            fetch(config.apiUrl + '/customer/add-confirm.html', {
+                // ↓ここが悪さしてたっぽい
                 // method: 'POST',
                 // headers: {
                 //     'Content-Type': 'application/x-www-form-urlencoded'
