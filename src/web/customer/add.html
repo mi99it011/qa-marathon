@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">顧客情報を入力してください</h2>
-        <form action="/add-customer" method="post" id="customer-form">
+        <form method="post" id="customer-form">
             <div class="form-group">
                 <label for="companyName">会社名:</label>
                 <input type="text" class="form-control" id="companyName" name="companyName" required>
@@ -37,7 +37,7 @@
             e.preventDefault();
             const formData = new FormData(this);
             
-            fetch(config.apiUrl + '/add-customer', {
+            fetch(config.apiUrl + '/customer/add-confirm.html', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
