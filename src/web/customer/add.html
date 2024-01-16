@@ -55,7 +55,7 @@
                     // フォームデータを URL パラメータに変換
                     const queryString = new URLSearchParams(formData).toString();
                     // リダイレクト
-                    window.location.href = config.apiUrl + 'customer/add-confirm.html' + queryString;
+                    window.location.href = `${apiUrl}/customer/add-confirm.html${queryString}`;
                 } else {
                     alert('保存に失敗しました。');
                 }
