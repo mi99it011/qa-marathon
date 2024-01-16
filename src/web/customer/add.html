@@ -49,15 +49,16 @@
                     alert('顧客情報が正常に保存されました。');
                     // フォームをリセット
                     document.getElementById('customer-form').reset();
+
+                    // フォームデータを URL パラメータに変換
+                    const queryString = new URLSearchParams(formData).toString();
+                    // リダイレクト
+                    window.location.href = config.apiUrl + '/customer/add-confirm.html';
                 } else {
                     alert('保存に失敗しました。');
                 }
               })
               .catch(error => console.error('Error:', error));
-
-              // フォームデータを確認画面に渡してリダイレクト
-            const queryString = new URLSearchParams([...formData]).toString();
-            window.location.href = config.apiUrl + '/customer/add-confirm.html?' + queryString;
         });
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
