@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: 'api_minami_ito'
+  apiUrl: 'minami_ito'
 };
 
 export default config;
