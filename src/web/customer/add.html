@@ -36,6 +36,8 @@
         document.getElementById('customer-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
+
+            console.log(config.apiUrl); // こちらを追加
             
             fetch(config.apiUrl + '/customer/add-confirm.html', {
                 method: 'POST',
