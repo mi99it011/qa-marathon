@@ -37,23 +37,6 @@
             e.preventDefault();
             const formData = new FormData(this);
 
-            const express = require('express');
-            const bodyParser = require('body-parser');
-            const app = express();
-            const port = 3000;
-            // POSTリクエストのボディを解析するためのmiddleware
-            app.use(bodyParser.urlencoded({ extended: true }));
-            // /customer/add-confirm.htmlに対するPOSTリクエストを処理
-            app.post('/customer/add-confirm.html', (req, res) => {
-                console.log('POST request to /customer/add-confirm.html received');
-                // リクエストの処理ロジックを追加
-                // ...
-                res.send('POST request received successfully');
-            });
-            app.listen(port, () => {
-                console.log(`Server is running on port ${port}`);
-            });
-            
             fetch('/minami_ito/customer/add-confirm.html', {
                 method: 'POST',
                 headers: {
