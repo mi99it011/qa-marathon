@@ -35,13 +35,18 @@
       };
 
       fetch('/minami_ito/customer/list.html')
-        .then((response) => {
-          return response.text();
-        })
+        .then((response) => response.text())
         .then((data) => {
+          // テキストデータをHTML要素として挿入
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const customers = doc.querySelectorAll('.customer-row');
+
           // console.log(data); // ここで解析されたデータをログに出力
           const list = document.getElementById("customer-list");
-          data.forEach((customer, index) => {
+
+          customers.forEach((customer, index) => {
+            const cells = customer.querySelectorAll('td');
             const row = list.insertRow();
             const cell1 = row.insertCell(0);
             const cell2 = row.insertCell(1);
@@ -49,15 +54,15 @@
 
             // 顧客名のクリック時に詳細画面へ遷移するリンクを追加
             const customerLink = document.createElement('a');
-            customerLink.href = createCustomerDetailLink(customer.customer_id);
-            customerLink.textContent = customer.company_name;
+            customerLink.href = createCustomerDetailLink(cells[1].textContent.trim());
+            customerLink.textContent = cells[1].textContent.trim();
             customerLink.style.cursor = 'pointer';
 
             // リンクをクリックしたときに詳細画面に遷移するイベントを追加
             customerLink.addEventListener('click', (event) => {
               event.preventDefault();
               console.log('リンクがクリックされました');
-              window.location.href = createCustomerDetailLink(customer.customer_id);
+              window.location.href = createCustomerDetailLink(cells[1].textContent.trim());
             });
 
             console.log('Before:', cell2.innerHTML); // 挿入前の内容
@@ -70,7 +75,7 @@
             cell1.textContent = index + 1;
             // ↓これコメントアウトしないとリンクにならなかった。textContentっていうのが、このセルは文字ですよっていってるんだと思う。
             // cell2.textContent = customer.company_name;
-            cell3.textContent = customer.contact;
+            cell3.textContent = cells[2].textContent.trim();
           });
         })
         .catch((error) => console.error(error));
