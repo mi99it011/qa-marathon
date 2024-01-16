@@ -37,24 +37,13 @@
             e.preventDefault();
             const formData = new FormData(this);
 
-            fetch('/minami_ito/customer/add-confirm.html', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            body: new URLSearchParams([...formData])
-        }).then(response => response.text())
-            .then(data => {
-                // add-confirm.htmlに遷移
-                document.open();
-                document.write(data);
-                document.close();
-              })
+            fetch('/minami_ito/customer/add-confirm.html')
+            then(response => response.text())
               .catch(error => console.error('Error:', error));
 
-            //   // フォームデータを URL パラメータに変換
-            //   const queryString = new URLSearchParams(formData).toString();
-            //   window.location.href = `/minami_ito/customer/add-confirm.html?${queryString}`;
+              // フォームデータを URL パラメータに変換
+              const queryString = new URLSearchParams(formData).toString();
+              window.location.href = `/minami_ito/customer/add-confirm.html?${queryString}`;
         });
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
