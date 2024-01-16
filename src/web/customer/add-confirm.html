@@ -38,15 +38,16 @@
 
         // 画面読み込み時に顧客情報を表示
         window.addEventListener('DOMContentLoaded', function() {
-            // URLからクエリパラメータを取得
-            const urlParams = new URLSearchParams(window.location.search);
+            // const urlParams = new URLSearchParams(window.location.search);
+            const confirmButton = document.getElementById('confirmButton');
             // 顧客情報を表示
             document.getElementById('companyName').textContent = urlParams.get('companyName');
             document.getElementById('industry').textContent = urlParams.get('industry');
             document.getElementById('contact').textContent = urlParams.get('contact');
             document.getElementById('location').textContent = urlParams.get('location');
             // 確認ボタンにクリックイベントを追加
-            document.getElementById('confirmButton').addEventListener('click', function() {
+            // document.getElementById('confirmButton').addEventListener('click', function() {
+            confirmButton.addEventListener('click', function() {
                 // ここに確認ボタンが押されたときの処理を追加
                 // 例えば、顧客を追加するAPIを呼び出すなど
                 alert('顧客を追加しました :）');
