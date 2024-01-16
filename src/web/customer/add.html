@@ -45,15 +45,6 @@
                 // },
                 // body: new URLSearchParams([...formData])
             }).then(response => response.text())
-              .then(data => {
-                if(data.success) {
-                    alert('顧客情報が正常に保存されました。');
-                    // フォームをリセット
-                    document.getElementById('customer-form').reset();
-                } else {
-                    alert('保存に失敗しました。');
-                }
-              })
               .catch(error => console.error('Error:', error));
 
               // フォームデータを URL パラメータに変換
