@@ -39,7 +39,7 @@
           return response.text();
         })
         .then((data) => {
-          console.log(data); // ここで解析されたデータをログに出力
+          // console.log(data); // ここで解析されたデータをログに出力
           const list = document.getElementById("customer-list");
           data.forEach((customer, index) => {
             const row = list.insertRow();
