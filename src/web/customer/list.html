@@ -34,7 +34,7 @@
         return config.apiUrl + `/customer/detail.html?customerId=${customerId}`;
       };
 
-      fetch(config.apiUrl + '/customer/list.html')
+      fetch('/minami_ito/customer/list.html')
         .then((response) => {
           return response.text();
         })
