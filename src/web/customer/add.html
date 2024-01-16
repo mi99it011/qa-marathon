@@ -37,6 +37,10 @@
             e.preventDefault();
             const formData = new FormData(this);
 
+            const express = require('express');
+            const bodyParser = require('body-parser');
+            const app = express();
+            const port = 3000;
             // POSTリクエストのボディを解析するためのmiddleware
             app.use(bodyParser.urlencoded({ extended: true }));
             // /customer/add-confirm.htmlに対するPOSTリクエストを処理
