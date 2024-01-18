@@ -27,33 +27,49 @@
     <script type="module">
         import config from '../config.js';
 
-        // ここに顧客データを表示するスクリプトを追加
+        // // ここに顧客データを表示するスクリプトを追加
+        // const customerData = {
+        //     companyName: "companyName",
+        //     industry: "industry",
+        //     contact: "contact",
+        //     location: "location"
+        //     // 他の顧客情報も同様に追加
+        // };
+
+        // 顧客データを取得
+        const urlParams = new URLSearchParams(window.location.search);
         const customerData = {
-            companyName: "companyName",
-            industry: "industry",
-            contact: "contact",
-            location: "location"
-            // 他の顧客情報も同様に追加
+            companyName: urlParams.get('companyName'),
+            industry: urlParams.get('industry'),
+            contact: urlParams.get('contact'),
+            location: urlParams.get('location')
         };
 
         // 画面読み込み時に顧客情報を表示
         window.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
+            // const urlParams = new URLSearchParams(window.location.search);
             // 顧客情報を表示
-            document.getElementById('companyName').textContent = urlParams.get('companyName');
-            document.getElementById('industry').textContent = urlParams.get('industry');
-            document.getElementById('contact').textContent = urlParams.get('contact');
-            document.getElementById('location').textContent = urlParams.get('location');
+            // document.getElementById('companyName').textContent = urlParams.get('companyName');
+            // document.getElementById('industry').textContent = urlParams.get('industry');
+            // document.getElementById('contact').textContent = urlParams.get('contact');
+            // document.getElementById('location').textContent = urlParams.get('location');
+            document.getElementById('companyName').textContent = customerData.companyName;
+            document.getElementById('industry').textContent = customerData.industry;
+            document.getElementById('contact').textContent = customerData.contact;
+            document.getElementById('location').textContent = customerData.location;
             // 確認ボタンにクリックイベントを追加
             document.getElementById('confirmButton').addEventListener('click', function() {
                 // ここに確認ボタンが押されたときの処理を追加
                 // 例えば、顧客を追加するAPIを呼び出すなど
                 alert('顧客を追加しました :）');
 
-                // 顧客追加画面に遷移する前に、顧客データをURLパラメータとして付加して遷移
-                const queryString = new URLSearchParams(customerData).toString();
+                // // 顧客追加画面に遷移する前に、顧客データをURLパラメータとして付加して遷移
+                // const queryString = new URLSearchParams(customerData).toString();
+                // 顧客情報をLocalStorageに保存
+                localStorage.setItem('companyName', urlParams.get('companyName'));
+                localStorage.setItem('contact', urlParams.get('contact'));
                 // 顧客追加画面に遷移
-                window.location.href = '/minami_ito/customer/list.html?' + queryString;
+                window.location.href = '/minami_ito/customer/list.html';
             });
         });
 

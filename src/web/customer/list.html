@@ -30,23 +30,41 @@
     import config from "../config.js";
     
     document.addEventListener('DOMContentLoaded', function() {
-      // const createCustomerDetailLink = (customerId) => {
-      //   return config.apiUrl + `/customer/detail.html?customerId=${customerId}`;
-      // };
-      const urlParams = new URLSearchParams(window.location.search);
-      const companyName = urlParams.get('companyName');
-      const industry = urlParams.get('industry');
-      const contact = urlParams.get('contact');
-      const location = urlParams.get('location');
+      const createCustomerDetailLink = (customerId) => {
+        return `/minami_ito/customer/detail.html?customerId=${customerId}`;
+      };
+      const list = document.getElementById("customer-list");
       
-      // 顧客データが存在するか確認して表示
-      if (companyName && industry && contact && location) {
-        // ここに顧客データを表示する処理を追加
-        document.getElementById('companyName').textContent = companyName;
-        document.getElementById('industry').textContent = industry;
-        document.getElementById('contact').textContent = contact;
-        document.getElementById('location').textContent = location;
-    }
+      // LocalStorageからデータを取得
+      const companyName = localStorage.getItem('companyName');
+      const contact = localStorage.getItem('contact');
+
+      // 顧客データが存在するか確認
+      if (companyName && contact) {
+        // データが存在する場合、一覧表示に追加する処理
+        const row = list.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+
+        cell1.textContent = '1';  // 仮の番号
+        cell2.textContent = companyName;
+        cell3.textContent = contact;
+
+        // LocalStorageのデータをクリア
+        localStorage.removeItem('companyName');
+        localStorage.removeItem('contact');
+
+      }
+      
+    //   // 顧客データが存在するか確認して表示
+    //   if (companyName && industry && contact && location) {
+    //     // ここに顧客データを表示する処理を追加
+    //     document.getElementById('companyName').textContent = companyName;
+    //     document.getElementById('industry').textContent = industry;
+    //     document.getElementById('contact').textContent = contact;
+    //     document.getElementById('location').textContent = location;
+    // }
 
       fetch('/minami_ito/customer/list.html')
         .then((response) => response.text())
