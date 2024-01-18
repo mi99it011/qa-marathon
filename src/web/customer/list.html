@@ -30,9 +30,23 @@
     import config from "../config.js";
     
     document.addEventListener('DOMContentLoaded', function() {
-      const createCustomerDetailLink = (customerId) => {
-        return config.apiUrl + `/customer/detail.html?customerId=${customerId}`;
-      };
+      // const createCustomerDetailLink = (customerId) => {
+      //   return config.apiUrl + `/customer/detail.html?customerId=${customerId}`;
+      // };
+      const urlParams = new URLSearchParams(window.location.search);
+      const companyName = urlParams.get('companyName');
+      const industry = urlParams.get('industry');
+      const contact = urlParams.get('contact');
+      const location = urlParams.get('location');
+      
+      // 顧客データが存在するか確認して表示
+      if (companyName && industry && contact && location) {
+        // ここに顧客データを表示する処理を追加
+        document.getElementById('companyName').textContent = companyName;
+        document.getElementById('industry').textContent = industry;
+        document.getElementById('contact').textContent = contact;
+        document.getElementById('location').textContent = location;
+    }
 
       fetch('/minami_ito/customer/list.html')
         .then((response) => response.text())

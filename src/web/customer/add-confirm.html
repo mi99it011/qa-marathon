@@ -49,8 +49,11 @@
                 // ここに確認ボタンが押されたときの処理を追加
                 // 例えば、顧客を追加するAPIを呼び出すなど
                 alert('顧客を追加しました :）');
+
+                // 顧客追加画面に遷移する前に、顧客データをURLパラメータとして付加して遷移
+                const queryString = new URLSearchParams(customerData).toString();
                 // 顧客追加画面に遷移
-                window.location.href = '/minami_ito/customer/list.html';
+                window.location.href = '/minami_ito/customer/list.html?' + queryString;
             });
         });
 
