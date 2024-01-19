@@ -27,15 +27,6 @@
     <script type="module">
         import config from '../config.js';
 
-        // // ここに顧客データを表示するスクリプトを追加
-        // const customerData = {
-        //     companyName: "companyName",
-        //     industry: "industry",
-        //     contact: "contact",
-        //     location: "location"
-        //     // 他の顧客情報も同様に追加
-        // };
-
         // 顧客データを取得
         const urlParams = new URLSearchParams(window.location.search);
         const customerData = {
@@ -47,12 +38,7 @@
 
         // 画面読み込み時に顧客情報を表示
         window.addEventListener('DOMContentLoaded', function() {
-            // const urlParams = new URLSearchParams(window.location.search);
             // 顧客情報を表示
-            // document.getElementById('companyName').textContent = urlParams.get('companyName');
-            // document.getElementById('industry').textContent = urlParams.get('industry');
-            // document.getElementById('contact').textContent = urlParams.get('contact');
-            // document.getElementById('location').textContent = urlParams.get('location');
             document.getElementById('companyName').textContent = customerData.companyName;
             document.getElementById('industry').textContent = customerData.industry;
             document.getElementById('contact').textContent = customerData.contact;
@@ -74,7 +60,7 @@
                         const result = await response.json();
                         console.log('Customer added successfully:', result);
                         
-                        // 顧客追加画面に遷移
+                        // 顧客一覧画面に遷移
                         window.location.href = config.apiUrl + '/customer/list.html';
                     } else {
                         console.error('Error:', response.statusText);
@@ -87,11 +73,6 @@
                 // ここまで追加した
 
                 alert('顧客を追加しました :）');
-
-                // // 顧客追加画面に遷移する前に、顧客データをURLパラメータとして付加して遷移
-                // const queryString = new URLSearchParams(customerData).toString();
-                // 顧客一覧画面に遷移
-                window.location.href = config.apiUrl + '/customer/list.html';
             });
         });
 
