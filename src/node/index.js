@@ -28,7 +28,6 @@ app.get("/customers", async (req, res) => {
     res.send(customerData.rows);
   } catch (err) {
     console.error(err);
-    res.send("Error " + err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
