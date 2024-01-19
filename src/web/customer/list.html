@@ -35,6 +35,8 @@
           // サーバーから顧客情報を取得
           const response = await fetch('/customer');
           const customers = await response.text();
+
+          console.log(customers);
   
           // 顧客データが存在するか確認して表示
           if (customers.length > 0) {
