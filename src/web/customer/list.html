@@ -25,89 +25,65 @@
       <a href="/minami_ito/index.html " class="text-right">ホーム画面に戻る</a>
     </div>
     
-    
     <script type="module">
-    import config from "../config.js";
-    
-    document.addEventListener('DOMContentLoaded', async function() {
-      const createCustomerDetailLink = (customerId) => {
-        return `/minami_ito/customer/detail.html?customerId=${customerId}`;
-      };
-      const list = document.getElementById("customer-list");
+      import config from "../config.js";
       
-      // LocalStorageからデータを取得
-      const companyName = localStorage.getItem('companyName');
-      const contact = localStorage.getItem('contact');
-
-      // 顧客データが存在するか確認
-      if (companyName && contact) {
-        // データが存在する場合、一覧表示に追加する処理
-        const row = list.insertRow();
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-        const cell3 = row.insertCell(2);
-
-        cell1.textContent = '1';  // 仮の番号
-        cell2.textContent = companyName;
-        cell3.textContent = contact;
-
-        // LocalStorageのデータをクリア
-        localStorage.removeItem('companyName');
-        localStorage.removeItem('contact');
-
-      }
-      
-    //   // 顧客データが存在するか確認して表示
-    //   if (companyName && industry && contact && location) {
-    //     // ここに顧客データを表示する処理を追加
-    //     document.getElementById('companyName').textContent = companyName;
-    //     document.getElementById('industry').textContent = industry;
-    //     document.getElementById('contact').textContent = contact;
-    //     document.getElementById('location').textContent = location;
-    // }
-
-      fetch('/minami_ito/customer/list.html')
-        .then((response) => response.text())
-        .then((data) => {
-          // テキストデータをHTML要素として挿入
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const customers = doc.querySelectorAll('.customer-row');
-
-          // // console.log(data); // ここで解析されたデータをログに出力
-          // const list = document.getElementById("customer-list");
-
-          customers.forEach((customer, index) => {
-            const cells = customer.querySelectorAll('td');
+      document.addEventListener('DOMContentLoaded', async function() {
+        const list = document.getElementById("customer-list");
+        
+        try {
+          // サーバーから顧客情報を取得
+          const response = await fetch('/customer');
+          const customers = await response.json();
+  
+          // 顧客データが存在するか確認して表示
+          if (customers.length > 0) {
+            customers.forEach((customer, index) => {
+              const row = list.insertRow();
+              const cell1 = row.insertCell(0);
+              const cell2 = row.insertCell(1);
+              const cell3 = row.insertCell(2);
+  
+              // 顧客名のクリック時に詳細画面へ遷移するリンクを追加
+              const customerLink = document.createElement('a');
+              customerLink.href = createCustomerDetailLink(customer.customer_id);
+              customerLink.textContent = customer.company_name;
+              customerLink.style.cursor = 'pointer';
+  
+              // リンクをクリックしたときに詳細画面に遷移するイベントを追加
+              customerLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                console.log('リンクがクリックされました');
+                window.location.href = createCustomerDetailLink(customer.customer_id);
+              });
+  
+              // 生成した<a>要素をセルに追加
+              cell1.textContent = index + 1;
+              cell2.appendChild(customerLink);
+              cell3.textContent = customer.contact;
+            });
+          } else {
+            // 顧客データが存在しない場合の表示
             const row = list.insertRow();
             const cell1 = row.insertCell(0);
             const cell2 = row.insertCell(1);
             const cell3 = row.insertCell(2);
-
-            // 顧客名のクリック時に詳細画面へ遷移するリンクを追加
-            const customerLink = document.createElement('a');
-            customerLink.href = createCustomerDetailLink(cells[1].textContent.trim());
-            customerLink.textContent = cells[1].textContent.trim();
-            customerLink.style.cursor = 'pointer';
-
-            // リンクをクリックしたときに詳細画面に遷移するイベントを追加
-            customerLink.addEventListener('click', (event) => {
-              event.preventDefault();
-              console.log('リンクがクリックされました');
-              window.location.href = createCustomerDetailLink(cells[1].textContent.trim());
-            });
-
-            // 生成した<a>要素をセルに追加
-            cell1.textContent = index + 1;
-            cell2.appendChild(customerLink);
-            // ↓これコメントアウトしないとリンクにならなかった。textContentっていうのが、このセルは文字ですよっていってるんだと思う。
-            // cell2.textContent = customer.company_name;
-            cell3.textContent = cells[2].textContent.trim();
-          });
-        })
-        .catch((error) => console.error(error));
-    });
+  
+            cell1.textContent = 'No data';
+            cell2.textContent = 'No data';
+            cell3.textContent = 'No data';
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          // エラーが発生した場合の処理を追加
+        }
+      });
+      
+      function createCustomerDetailLink(customerId) {
+        return `/minami_ito/customer/detail.html?customerId=${customerId}`;
+      }
     </script>
+    
 
     <!-- BootstrapのJavaScriptと依存関係のリンク -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
