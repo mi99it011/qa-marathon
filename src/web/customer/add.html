@@ -32,10 +32,10 @@
     </div>
     <script type="module">
         import config from '../config.js';
+        const formData = new FormData(this);
 
         document.getElementById('customer-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const formData = new FormData(this);
 
             console.log('FormData:', formData);
 
@@ -63,11 +63,11 @@
             console.error('Error:', error);
             alert('エラーが発生しました :(');
 
-            // フォームデータを URL パラメータに変換
-              const queryString = new URLSearchParams(formData).toString();
-              // add-confirm.html にリダイレクト
-              window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
         }
+        // フォームデータを URL パラメータに変換
+        const queryString = new URLSearchParams(formData).toString();
+        // add-confirm.html にリダイレクト
+        window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
     });
 
               
