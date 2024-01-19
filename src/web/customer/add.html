@@ -62,13 +62,15 @@
         } catch (error) {
             console.error('Error:', error);
             alert('エラーが発生しました :(');
-        }
-    });
 
-              // フォームデータを URL パラメータに変換
+            // フォームデータを URL パラメータに変換
               const queryString = new URLSearchParams(formData).toString();
               // add-confirm.html にリダイレクト
               window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
+        }
+    });
+
+              
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
