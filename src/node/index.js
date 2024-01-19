@@ -7,6 +7,10 @@ const port = 3333;
 const cors = require("cors");
 app.use(cors());
 
+// 一覧画面表紙のために追加
+const helmet = require('helmet');
+app.use(helmet());
+
 const { Pool } = require("pg");
 // Staging環境でDBに繋げられるようにこの↓情報を変更する必要がある。15kmで書いてある内容に変更。
 const pool = new Pool({
