@@ -33,7 +33,7 @@ app.get("/customers", async (req, res) => {
 });
 
 // ↓で、http://localhost/customer/detail.html?customerId=1 みたいにID指定が効くようになった
-app.get("/customer/:id", async (req, res) => {
+app.get("/customers/:id", async (req, res) => {
   const customerId = req.params.id;
   try {
     const customerData = await pool.query("SELECT * FROM customers WHERE customer_id = $1", [customerId]);
@@ -48,7 +48,7 @@ app.get("/customer/:id", async (req, res) => {
   }
 });
 
-app.delete("/customer/:id", async (req, res) => {
+app.delete("/customers/:id", async (req, res) => {
   const customerId = req.params.id;
 
   try {
