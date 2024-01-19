@@ -22,7 +22,7 @@ app.listen(port, () => {
 });
 
 // ↓"/customers"ってなってたのを変更　関係ないかも
-app.get("/customer", async (req, res) => {
+app.get("/customers", async (req, res) => {
   try {
     const customerData = await pool.query("SELECT * FROM customers");
     res.send(customerData.rows);

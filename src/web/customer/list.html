@@ -27,16 +27,15 @@
     
     <script type="module">
       import config from "../config.js";
+      const apiUrl = 'api_minami_ito';
       
       document.addEventListener('DOMContentLoaded', async function() {
         const list = document.getElementById("customer-list");
         
         try {
           // サーバーから顧客情報を取得
-          const response = await fetch('/customer');
+          const response = await fetch(apiUrl + '/customers');
           const customers = await response.text();
-
-          console.log(customers);
   
           // 顧客データが存在するか確認して表示
           if (customers.length > 0) {
