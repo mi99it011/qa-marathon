@@ -62,7 +62,7 @@
                 // ここから
                 try {
                     // 顧客を追加するAPIを呼び出す
-                    const response = await fetch('/add-customer', {
+                    const response = await fetch(config.apiUrl + '/add-customer', {
                         method: 'POST',
                         body: JSON.stringify(customerData),
                         headers: {
@@ -75,7 +75,7 @@
                         console.log('Customer added successfully:', result);
                         
                         // 顧客追加画面に遷移
-                        window.location.href = '/minami_ito/customer/list.html';
+                        window.location.href = config.apiUrl + '/customer/list.html';
                     } else {
                         console.error('Error:', response.statusText);
                         alert('顧客の追加に失敗しました :(');
@@ -85,16 +85,13 @@
                     alert('エラーが発生しました :(');
                 }
                 // ここまで追加した
-                
+
                 alert('顧客を追加しました :）');
 
                 // // 顧客追加画面に遷移する前に、顧客データをURLパラメータとして付加して遷移
                 // const queryString = new URLSearchParams(customerData).toString();
-                // 顧客情報をLocalStorageに保存
-                localStorage.setItem('companyName', urlParams.get('companyName'));
-                localStorage.setItem('contact', urlParams.get('contact'));
-                // 顧客追加画面に遷移
-                window.location.href = '/minami_ito/customer/list.html';
+                // 顧客一覧画面に遷移
+                window.location.href = config.apiUrl + '/customer/list.html';
             });
         });
 
