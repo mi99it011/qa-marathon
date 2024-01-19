@@ -37,17 +37,8 @@
             e.preventDefault();
             const formData = new FormData(this);
 
-            // fetch('/minami_ito/customer/add-confirm.html')
-            // .then(response => response.text())
-            //   .catch(error => console.error('Error:', error));
-            fetch(config.apiUrl + '/add-customer', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams([...formData])
-            }).then(response => response.text())
-            // 保存に成功失敗のアラート入れてたけど、確認画面作ってるから無くした。
+            fetch('/minami_ito/customer/add-confirm.html')
+            .then(response => response.text())
               .catch(error => console.error('Error:', error));
 
               // フォームデータを URL パラメータに変換
