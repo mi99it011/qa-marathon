@@ -37,11 +37,6 @@
             e.preventDefault();
             const formData = new FormData(this);
 
-            // フォームデータの内容をコンソールに出力
-            for (const [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
-
             try {
             const response = await fetch(config.apiUrl + '/add-customer', {
                 method: 'POST',
@@ -51,7 +46,8 @@
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
+            
+            // このレスポンスっていうのは、Nodeが立ち上がってればokになる
             if (response.ok) {
                 const result = await response.json();
                 console.log('Customer added successfully:', result);
