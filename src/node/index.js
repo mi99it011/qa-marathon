@@ -8,11 +8,12 @@ const cors = require("cors");
 app.use(cors());
 
 const { Pool } = require("pg");
+// Staging環境でDBに繋げられるようにこの↓情報を変更する必要がある。15kmで書いてある内容に変更。
 const pool = new Pool({
-  user: "user_3333", // PostgreSQLのユーザー名に置き換えてください
-  host: "db", //"host"ってなってたのを変更
-  database: "crm_3333", // PostgreSQLのデータベース名に置き換えてください
-  password: "pass_3333", // PostgreSQLのパスワードに置き換えてください
+  user: "user_minami_ito", // PostgreSQLのユーザー名に置き換えてください
+  host: "localhost", //"host"ってなってたのを変更
+  database: "db_minami_ito", // PostgreSQLのデータベース名に置き換えてください
+  password: "pass", // PostgreSQLのパスワードに置き換えてください
   port: 5432,
 });
 

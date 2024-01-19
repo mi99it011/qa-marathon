@@ -29,7 +29,7 @@
     <script type="module">
     import config from "../config.js";
     
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
       const createCustomerDetailLink = (customerId) => {
         return `/minami_ito/customer/detail.html?customerId=${customerId}`;
       };
@@ -74,8 +74,8 @@
         const doc = parser.parseFromString(data, 'text/html');
         const customers = doc.querySelectorAll('.customer-row');
 
-          // console.log(data); // ここで解析されたデータをログに出力
-          const list = document.getElementById("customer-list");
+          // // console.log(data); // ここで解析されたデータをログに出力
+          // const list = document.getElementById("customer-list");
 
           customers.forEach((customer, index) => {
             const cells = customer.querySelectorAll('td');
@@ -97,14 +97,9 @@
               window.location.href = createCustomerDetailLink(cells[1].textContent.trim());
             });
 
-            console.log('Before:', cell2.innerHTML); // 挿入前の内容
             // 生成した<a>要素をセルに追加
-            cell2.appendChild(customerLink);
-            console.log('After:', cell2.innerHTML); // 挿入後の内容
-
-            console.log('Target cell:', cell2);
-
             cell1.textContent = index + 1;
+            cell2.appendChild(customerLink);
             // ↓これコメントアウトしないとリンクにならなかった。textContentっていうのが、このセルは文字ですよっていってるんだと思う。
             // cell2.textContent = customer.company_name;
             cell3.textContent = cells[2].textContent.trim();
