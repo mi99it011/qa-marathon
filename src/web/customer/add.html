@@ -33,15 +33,35 @@
     <script type="module">
         import config from '../config.js';
 
-        document.getElementById('customer-form').addEventListener('submit', function(e) {
+        document.getElementById('customer-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const formData = new FormData(this);
 
-              // フォームデータを URL パラメータに変換
-              const queryString = new URLSearchParams(formData).toString();
-              // add-confirm.html にリダイレクト
-              window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
-        });
+            try {
+            const response = await fetch(config.apiUrl + '/add-customer', {
+                method: 'POST',
+                body: formData,  // 直接フォームデータを渡す
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Customer added successfully:', result);
+                alert('顧客を追加しました :）');
+                window.location.href = config.apiUrl + '/customer/add-confirm.html';
+            } else {
+                console.error('Error:', response.statusText);
+                alert('顧客の追加に失敗しました :(');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('エラーが発生しました :(');
+        }
+    });
+
+            //   // フォームデータを URL パラメータに変換
+            //   const queryString = new URLSearchParams(formData).toString();
+            //   // add-confirm.html にリダイレクト
+            //   window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
