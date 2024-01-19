@@ -26,14 +26,14 @@
     </div>
     
     <script type="module">
-      // import config from "../config.js";
+      import config from "../config.js";
       
       document.addEventListener('DOMContentLoaded', async function() {
         const list = document.getElementById("customer-list");
         
         try {
           // サーバーから顧客情報を取得
-          const response = await fetch('minami_ito' + '/customers');
+          const response = await fetch(config.apiUrl + '/customers');
           const customers = await response.text();
   
           // 顧客データが存在するか確認して表示
