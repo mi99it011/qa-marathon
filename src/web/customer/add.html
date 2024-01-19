@@ -37,9 +37,9 @@
             e.preventDefault();
             const formData = new FormData(this);
 
-            // fetch(config.apiUrl + '/customer/add-confirm.html')
-            // .then(response => response.text())
-            //   .catch(error => console.error('Error:', error));
+            fetch(config.apiUrl + '/customer/add-confirm.html')
+            .then(response => response.text())
+              .catch(error => console.error('Error:', error));
 
               // フォームデータを URL パラメータに変換
               const queryString = new URLSearchParams(formData).toString();
