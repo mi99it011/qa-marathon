@@ -37,6 +37,8 @@
             e.preventDefault();
             const formData = new FormData(this);
 
+            console.log('FormData:', formData);
+
             try {
             const response = await fetch(config.apiUrl + '/add-customer', {
                 method: 'POST',
@@ -63,10 +65,10 @@
         }
     });
 
-            //   // フォームデータを URL パラメータに変換
-            //   const queryString = new URLSearchParams(formData).toString();
-            //   // add-confirm.html にリダイレクト
-            //   window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
+              // フォームデータを URL パラメータに変換
+              const queryString = new URLSearchParams(formData).toString();
+              // add-confirm.html にリダイレクト
+              window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
