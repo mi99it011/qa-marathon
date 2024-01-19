@@ -37,7 +37,7 @@
         };
 
         // 画面読み込み時に顧客情報を表示
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', async function() {
             // 顧客情報を表示
             document.getElementById('companyName').textContent = customerData.companyName;
             document.getElementById('industry').textContent = customerData.industry;
@@ -45,7 +45,6 @@
             document.getElementById('location').textContent = customerData.location;
             // 確認ボタンにクリックイベントを追加
             document.getElementById('confirmButton').addEventListener('click', async function() {
-                // ここから
                 try {
                     // 顧客を追加するAPIを呼び出す
                     const response = await fetch(config.apiUrl + '/add-customer', {
@@ -70,7 +69,6 @@
                     console.error('Error:', error);
                     alert('エラーが発生しました :(');
                 }
-                // ここまで追加した
             });
         });
 
