@@ -35,12 +35,13 @@
           // サーバーから顧客情報を取得
           const response = await fetch(config.apiUrl + '/customers');
           const customers = await response.text();
-          
-          console.log(customers);
+
+          // JSON 文字列を JavaScript オブジェクトに変換
+          const customersObject = JSON.parse(customers);
   
           // 顧客データが存在するか確認して表示
-          if (customers.length > 0) {
-            customers.forEach((customer, index) => {
+          if (Array.isArray(customersObject) && customersObject.length > 0) {
+            customersObject.forEach((customer, index) => {
               const row = list.insertRow();
               const cell1 = row.insertCell(0);
               const cell2 = row.insertCell(1);
