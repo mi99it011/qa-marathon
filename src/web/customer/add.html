@@ -105,7 +105,6 @@
                 console.error('Error:', error);
                 alert('エラーが発生しました :(');
             }
-        });
 
         // フォームデータを URL パラメータに変換
         const queryString = new URLSearchParams(customerData).toString();
@@ -113,6 +112,7 @@
         window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
 
         // });
+    });
 
               
     </script>
