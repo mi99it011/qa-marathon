@@ -34,71 +34,85 @@
         import config from '../config.js';
 
         // // フォーム要素を取得
-        // const updateForm = document.getElementById('update-form');
+        // const formdata = document.getElementById('customer-form');
+        // console.log('FormData:', formdata);
 
-        // // フォームが送信されたときのイベントリスナー
-        // updateForm.addEventListener('submit', (event) => {
-        //     event.preventDefault();
+        // document.addEventListener('submit', (e) => {
+        //     e.preventDefault();
 
-        //     // フォームデータを取得
-        //     const formData = new FormData(updateForm);
+        //     const formData = new FormData(formdata);
+        //     // // フォームデータをオブジェクトに変換
+        //     // const customerData = {};
+        //     // formData.forEach((value, key) => {
+        //     //     customerData[key] = value;
+        //     // });
+        //     console.log('FormData:', formData);
 
-        //     // フォームデータをオブジェクトに変換
-        //     const customerData = {};
-        //     formData.forEach((value, key) => {
-        //         customerData[key] = value;
+        //     try {
+        //     const response = fetch(config.apiUrl + '/add-customer', {
+        //         method: 'POST',
+        //         body: formData,
+        //         headers: {
+        //             // 重要: フォームデータを送信する場合はこのヘッダーが必要です
+        //             'Content-Type': 'multipart/form-data',
+        //         },
         //     });
+            
+        //     // このレスポンスっていうのは、Nodeが立ち上がってればokになる
+        //     if (response.ok) {
+        //         const result = response.json();
+        //         console.log('Customer added successfully:', result);
+        //         alert('顧客を追加しました :）');
+        //         window.location.href = config.apiUrl + '/customer/add-confirm.html';
+        //     } else {
+        //         console.error('Error:', response.statusText);
+        //         alert('顧客の追加に失敗しました :(');
+        //     }
+        // } catch (error) {
+        //     console.error('Error:', error);
+        //     alert('エラーが発生しました :(');
+        // }
 
-        //     // フォームデータを確認画面に渡してリダイレクト
-        //     const queryString = new URLSearchParams([...formData]).toString();
-        //     window.location.href = config.apiUrl + `/customer/update-confirm.html?customerId=${customerId}&${queryString}`;
-        // });
-
-        // フォーム要素を取得
-        const formdata = document.getElementById('customer-form');
-        console.log('FormData:', formdata);
-
-        document.addEventListener('submit', (e) => {
+        document.getElementById('customer-form').addEventListener('submit', async function (e) {
             e.preventDefault();
-
-            const formData = new FormData(formdata);
-            // // フォームデータをオブジェクトに変換
-            // const customerData = {};
-            // formData.forEach((value, key) => {
-            //     customerData[key] = value;
-            // });
-            console.log('FormData:', formData);
-
-            try {
-            const response = fetch(config.apiUrl + '/add-customer', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    // 重要: フォームデータを送信する場合はこのヘッダーが必要です
-                    'Content-Type': 'multipart/form-data',
-                },
+            
+            const formData = new FormData(this);
+            const customerData = {};
+            
+            formData.forEach((value, key) => {
+                customerData[key] = value;
             });
             
-            // このレスポンスっていうのは、Nodeが立ち上がってればokになる
-            if (response.ok) {
-                const result = response.json();
-                console.log('Customer added successfully:', result);
-                alert('顧客を追加しました :）');
-                window.location.href = config.apiUrl + '/customer/add-confirm.html';
-            } else {
-                console.error('Error:', response.statusText);
-                alert('顧客の追加に失敗しました :(');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('エラーが発生しました :(');
+            try {
+                const response = await fetch(config.apiUrl + '/add-customer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(customerData)
+                });
 
-        }
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Customer added successfully:', result);
+                    alert('顧客を追加しました :）');
+                    // 他の処理やリダイレクトなどを追加する場合はここに記述
+                } else {
+                    console.error('Error:', response.statusText);
+                    alert('顧客の追加に失敗しました :(');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('エラーが発生しました :(');
+            }
+        });
+
         // フォームデータを URL パラメータに変換
-        const queryString = new URLSearchParams(formData).toString();
+        const queryString = new URLSearchParams(customerData).toString();
         // add-confirm.html にリダイレクト
         window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
-        });
+
+        // });
 
               
     </script>
