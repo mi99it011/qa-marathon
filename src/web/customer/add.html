@@ -32,14 +32,44 @@
     </div>
     <script type="module">
         import config from '../config.js';
-        const formData = new FormData(this);
-        console.log('FormData:', formData);
 
-        document.getElementById('customer-form').addEventListener('submit', async function(e) {
+        // // フォーム要素を取得
+        // const updateForm = document.getElementById('update-form');
+
+        // // フォームが送信されたときのイベントリスナー
+        // updateForm.addEventListener('submit', (event) => {
+        //     event.preventDefault();
+
+        //     // フォームデータを取得
+        //     const formData = new FormData(updateForm);
+
+        //     // フォームデータをオブジェクトに変換
+        //     const customerData = {};
+        //     formData.forEach((value, key) => {
+        //         customerData[key] = value;
+        //     });
+
+        //     // フォームデータを確認画面に渡してリダイレクト
+        //     const queryString = new URLSearchParams([...formData]).toString();
+        //     window.location.href = config.apiUrl + `/customer/update-confirm.html?customerId=${customerId}&${queryString}`;
+        // });
+
+        // フォーム要素を取得
+        const formData = document.getElementById('customer-form');
+
+        document.addEventListener('submit', (e) => {
             e.preventDefault();
 
+            const formData = new FormData(formData);
+            // // フォームデータをオブジェクトに変換
+            // const customerData = {};
+            // formData.forEach((value, key) => {
+            //     customerData[key] = value;
+            // });
+            console.log('FormData:', formData);
+
             try {
-            const response = await fetch(config.apiUrl + '/add-customer', {
+            const response = fetch(config.apiUrl + '/add-customer', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -50,7 +80,7 @@
             
             // このレスポンスっていうのは、Nodeが立ち上がってればokになる
             if (response.ok) {
-                const result = await response.json();
+                const result = response.json();
                 console.log('Customer added successfully:', result);
                 alert('顧客を追加しました :）');
                 window.location.href = config.apiUrl + '/customer/add-confirm.html';
@@ -67,7 +97,7 @@
         const queryString = new URLSearchParams(formData).toString();
         // add-confirm.html にリダイレクト
         window.location.href = config.apiUrl + `/customer/add-confirm.html?${queryString}`;
-    });
+        });
 
               
     </script>
