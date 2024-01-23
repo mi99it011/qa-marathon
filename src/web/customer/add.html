@@ -68,7 +68,6 @@
 
         // フォームデータを URL パラメータに変換
         const queryString = new URLSearchParams(customerData).toString();
-        // add-confirm.html にリダイレクト
         // window.location.href = `${config.apiUrl}/customer/add-confirm.html?${queryString}`;
         window.location.href = `/minami_ito/customer/add-confirm.html?${queryString}`;
 

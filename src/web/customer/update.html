@@ -34,7 +34,6 @@
 
     <script type="module">
         import config from "../config.js";
-        // ExpressサーバのAPIエンドポイントのURL
 
         // 画面読み込み時にクエリパラメータから顧客IDを取得
         const urlParams = new URLSearchParams(window.location.search);
@@ -58,7 +57,8 @@
 
             // フォームデータを確認画面に渡してリダイレクト
             const queryString = new URLSearchParams([...formData]).toString();
-            window.location.href = config.apiUrl + `/customer/update-confirm.html?customerId=${customerId}&${queryString}`;
+            // window.location.href = config.apiUrl + `/customer/update-confirm.html?customerId=${customerId}&${queryString}`;
+            window.location.href = `/minami_ito/customer/update-confirm.html?customerId=${customerId}&${queryString}`;
         });
 
         // 画面読み込み時に顧客情報を表示
