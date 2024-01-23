@@ -93,19 +93,32 @@ app.post("/add-customer", async (req, res) => {
 // 顧客情報更新のエンドポイント
 app.post('/update-customer/:id', async (req, res) => {
   const customerId = req.params.id;
-  const { companyName, industry, contact, location } = req.body;
 
   try {
-    // データベースの更新クエリ
-    const updateQuery = `UPDATE customers SET company_name = $1, industry = $2, contact = $3, location = $4 WHERE customer_id = $5 `;
+    // 顧客が存在するか確認
+    const customerCheck = await pool.query("SELECT * FROM customers WHERE customer_id = $1", [customerId]);
 
-    // パラメータと一緒にクエリを実行
-    await pool.query(updateQuery, [companyName, industry, contact, location, customerId]);
+    if (customerCheck.rows.length === 0) {
+      // 顧客が存在しない場合、404エラーを返す
+      res.status(404).json({ error: "Customer not found" });
+      return;
+    }
 
-    res.json({ success: true, message: 'Customer updated successfully' });
-  } catch (error) {
-    console.error('Error updating customer:', error);
-    res.status(500).json({ success: false, message: 'Error updating customer' });
+    // フォームデータから更新情報を取得
+    const { companyName, industry, contact, location } = req.body;
+
+    // 顧客情報を更新
+    await pool.query(
+      "UPDATE customers SET company_name = $1, industry = $2, contact = $3, location = $4 WHERE customer_id = $5",
+      [companyName, industry, contact, location, customerId]
+    );
+
+    // 更新成功時、成功メッセージを返す
+    res.json({ success: true, message: "Customer updated successfully" });
+  } catch (err) {
+    // エラーが発生した場合、500エラーを返す
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
