@@ -77,7 +77,7 @@ app.post("/add-customer", async (req, res) => {
   console.log('Received form data:', req.body);
   try {
     const { companyName, industry, contact, location } = req.body;
-    
+
     const newCustomer = await pool.query(
       "INSERT INTO customers (company_name, industry, contact, location) VALUES ($1, $2, $3, $4) RETURNING *",
       [companyName, industry, contact, location]
@@ -86,6 +86,26 @@ app.post("/add-customer", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.json({ success: false });
+  }
+});
+
+
+// 顧客情報更新のエンドポイント
+app.post('/update-customer/:id', async (req, res) => {
+  const customerId = req.params.id;
+  const { companyName, industry, contact, location } = req.body;
+
+  try {
+    // データベースの更新クエリ
+    const updateQuery = `UPDATE customers SET company_name = $1, industry = $2, contact = $3, location = $4 WHERE customer_id = $5 `;
+
+    // パラメータと一緒にクエリを実行
+    await pool.query(updateQuery, [companyName, industry, contact, location, customerId]);
+
+    res.json({ success: true, message: 'Customer updated successfully' });
+  } catch (error) {
+    console.error('Error updating customer:', error);
+    res.status(500).json({ success: false, message: 'Error updating customer' });
   }
 });
 

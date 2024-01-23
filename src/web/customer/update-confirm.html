@@ -10,9 +10,13 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">顧客情報更新確認</h1>
-        <p>以下の内容で顧客を追加します。よろしいですか？</p>
+        <p>以下の内容で顧客を更新しました。</p>
+        <br>
         <ul id="confirmation-message"></ul>
-        <button id="confirm-update" class="btn btn-primary">更新</button>
+        <br>
+        <p>＊編集が必要な場合は再度顧客詳細画面から編集してください＊</p>
+        <br>
+        <button id="confirm-update" class="btn btn-primary">OK</button>
         <br>
         <br>
         <a href="/minami_ito/customer/list.html" class="text-right">一覧に戻る</a>
@@ -52,7 +56,7 @@
         // 更新を確認するボタンがクリックされたときの処理
         const confirmUpdateButton = document.getElementById('confirm-update');
         confirmUpdateButton.addEventListener('click', () => {
-            const confirmation = confirm('更新していいですか？');
+            const confirmation = confirm('更新が完了しました :)');
 
             if (confirmation) {
                 // 更新確認がOKの場合、顧客詳細表示画面に遷移
