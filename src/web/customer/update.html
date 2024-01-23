@@ -62,7 +62,7 @@
         });
 
         // 画面読み込み時に顧客情報を表示
-        fetch(`${config.apiUrl}/customer/${customerId}`)
+        fetch(`${config.apiUrl}/customers/${customerId}`)
             .then(response => response.json())
             .then(customer => {
                 // 顧客情報をフォームにセット

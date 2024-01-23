@@ -47,7 +47,7 @@
     const customerId = urlParams.get('customerId');
 
       // APIから顧客データを取得して表示
-      fetch(`${config.apiUrl}/customer/${customerId}`)
+      fetch(`${config.apiUrl}/customers/${customerId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -81,7 +81,7 @@
 
     if (confirmation) {
         // ユーザーが削除を確認した場合、サーバーサイドのエンドポイントを呼び出し
-        fetch(`${config.apiUrl}/customer/${customerId}`, {
+        fetch(`${config.apiUrl}/customers/${customerId}`, {
         method: 'DELETE',
         })
         .then(response => response.json())
