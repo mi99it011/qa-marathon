@@ -2,7 +2,7 @@ name: ssh command
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,4 +14,4 @@ jobs:
           SSH_PORT: ${{ secrets.DEV_SSH_PORT }}
           SSH_USER: ${{ secrets.DEV_SSH_USER }}
           SSH_KEY: ${{ secrets.DEV_SSHE_SSH_KEY }}
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} bash /app/deploy_test.sh minami_ito			
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} bash /app/deploy.sh minami_ito			
