@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('40kmtest', async ({ page }) => {
   await page.goto('http://dev.marathon.rplearn.net/minami_ito/index.html');
   await page.getByRole('link', { name: '顧客一覧' }).click();
   await page.goto('http://dev.marathon.rplearn.net/minami_ito/customer/update.html?customerId=51');
